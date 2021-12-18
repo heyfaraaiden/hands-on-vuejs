@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product App</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="nav-bar"></div>
+
+    <div id="app">
+      <div class="product">
+        <div class="product-image">
+          <img v-bind:src="image">
+        </div>
+
+        <div class="product-info">
+          <h1>{{ product }}</h1>
+          <p v-if="inStock">In Stock</p>
+          <p v-else>Out of Stock</p>
+
+          <ul>
+            <li v-for="detail in details">{{ detail }}</li>
+          </ul>
+
+          <ul>
+            <li v-for="size in sizes">{{ size }}</li>
+          </ul>
+
+          <div v-for="variant in variants" :key="variant.variantId">
+            <p>{{ variant.variantColor }}</p>
+          </div> 
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
+
+<!--
+Note:
+1. <li v-for="detail in details">{{ detail }}</li>
+    - detail in this case is an alias for the element we're iterating on as we loop through the collection item in array of details
+    - details in this case refers to our details array in our data
+    - {{ detail }} -> display each string from our details array
+
+3. Lesson learned
+    - The v-for directive allows us to iterate over an array to display data
+    - We use an alias for the element in the array being iterated on, and specify the name of the array we are looping through. Ex: v-for="item in items"
+    - We can loop over an array of objects and use dot notation to display values from the objects
+    - When using v-for, it is recommended to give each rendered elements its own unique key so that Vue can keep track of each node's identity. We use v-bind to bind the key to our variant's variantId value
+-->
