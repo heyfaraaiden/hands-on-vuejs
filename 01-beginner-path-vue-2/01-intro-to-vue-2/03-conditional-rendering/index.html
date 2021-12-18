@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product App</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="nav-bar"></div>
+
+    <div id="app">
+      <div class="product">
+        <div class="product-image">
+          <img v-bind:src="image">
+        </div>
+        <div class="product-info">
+          <h1>{{ product }}</h1>
+          <!-- 
+          // update status of stock based on boolean value from data
+          <p v-if="inStock">In Stock</p>
+          <p v-else>Out of Stock</p>
+          -->
+          <!-- update status of stock based on number of items left -->
+          <p v-if="inventory > 10">In Stock</p>
+          <p v-else-if="inventory <= 10 && inventory > 0">Almost Out of Stock</p>
+          <p v-else>Out of Stock</p>
+          <p v-if="onSale">On Sale!</p> <!--challenge: use v-is to make 'On Sale!' appear when the onSale data is true -->
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
+
+<!--
+Note:
+1. To do conditional rendering, we can use v-if, v-else-if, v-else
+  <p v-if="inStock">In Stock</p>
+  <p v-else>Out of Stock</p>
+
+  if inStock is truthy, the first paragraph will render. Otherwise, the second paragraph will.
+
+2. To make an element to frequently toggle on and off, we can use the v-show directive. An element with this directive on it will always be present in our DOM, but it will only be visible on the page if its condition is met. It will conditionally add or remove the CSS property display: none to the element. This method is more performant than inserting and removing an element over and over with v-if / v-else.
+    <p v-show="inStock">In Stock</p>
+
+3. Lesson learned:
+    - There are Vue directives to conditionally render elements
+      - v-if
+      - v-else-if
+      - v-else
+      - v-show
+    - If whatever is inside the directive's quotes is truthy, the element will display
+    - We can use expressions inside the directive's quotes
+    - v-show only toggles visibility, it doesn't insert or remove the element from the DOM
+-->
