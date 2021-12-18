@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product App</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="nav-bar"></div>
+
+    <div id="app">
+      <div class="product">
+        <div class="product-image">
+          <img v-bind:src="image" :alt="altText"> <!-- we use v-bind or :(attribute) directive to create a bond between the data and the attribute that we want it to be bound to -->
+        </div>
+        <div class="product-info">
+          <h1>{{ product }}</h1>
+          <p>Get more collection here: <a :href="link">Vue Mastery</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
+
+<!--
+NOTE:
+1. v-bind
+    dynamically binds an attribute to an expression.
+    In this exercise, the attribute that is binding to is src and the expression is something inside the quote -> v-bind:src="expression" -> in this exercise, we put data of "image". v-bind is commonly used in projects. There's a shorthand for it:
+      - :src="source to asset"
+      - :alt="description"
+      - :href="url"
+      - :title="toolTip"
+      - :class="isActive"
+      - :style="isStyled"
+      - :disabled="isDisabled"
+      - etc
+
+2. Lesson learned:
+    - Data can be bound to HTML attributes
+    - Syntax is v-bind or : for short
+    - The attribute name that comes after the : specifies the attribute we're binding data to
+    - Inside the attribute's quote, we reference the data we're binding to
+-->
