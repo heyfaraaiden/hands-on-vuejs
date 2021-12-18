@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product App</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="nav-bar"></div>
+
+    <div id="app">
+      <div class="product">
+        <div class="product-image">
+          <img v-bind:src="image">
+        </div>
+
+        <div class="product-info">
+          <h1>{{ product }}</h1>
+          <p v-if="inStock">In Stock</p>
+          <p v-else :class="{ outOfStock : !inStock }">Out of Stock</p>
+
+          <ul>
+            <li v-for="detail in details">{{ detail }}</li>
+          </ul>
+          
+          <!-- HERE -->
+          <div class="color-box"
+              v-for="variant in variants"
+              :key="variant.variantId"
+              :style="{ backgroundColor: variant.variantColor }"
+              @mouseover="updateProduct(variant.variantImage)">
+          </div>
+          
+          <button v-on:click="addToCart"
+              :disabled="!inStock"
+              :class="{ disabledButton: !inStock }"
+              >Add to Cart</button>
+          <button @click="removeFromCart">Decrease Item</button>
+          <!-- ENDS HERE -->
+
+          <div class="cart">
+            <p>Cart({{cart}})</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
+
+<!--
+Note:
+1. In this lesson, we are learning on how to dynamically style our HTML by binding data to an element's style attribute, as well as its class.
+
+2. Built-in HTML attribute, 'disabled', can disable the button. In the code above, we can use attribute binding to add the 'disabled' attribute whenever 'inStock' is false, or rather not true '!inStock'. But, that doesn't change the appearance of the button. In other words, the button still appears clickable even though it's not. In a similar way to how we just bound inStock to the button’s disabled attribute, we can bind a disabledButton class to our button whenever inStock is false. That way, our button will also appear disabled -> ... :class="{ disabledButton : !inStock }" ...
+
+We’re using the v-bind directive’s shorthand : to bind to our button’s class. Inside the brackets we’re determining the presence of the disabled-button class by the truthiness of the data property inStock. In other words, when our product is not in stock ( !inStock ), the disabledButton class is added. Since the disabled-button class applies a gray background-color, the button turns gray.
+
+Great! We’ve combined our new skill class binding with attribute binding to disable our button and turn it gray whenever our product inStock is false.
+
+3. Another example of style bindings:
+    // HTML
+    <h1 :style="{ color: color }">...</h1> // on the left is css property 'color'. on the right, we're referencing color from our data in order to set it to red. This expression evaluates to <h1 style="color: red">...</h1>
+    <p :style="{ fontSize: fontSize }">...</p>
+
+    // JS
+    ...
+    data: {
+      color: 'red',
+      fontSize: '13px'
+    }
+    ...
+
+    // It's also possible and often cleaner and more readable to a style object.
+    // HTML
+    <span :style="styleObject">...</span> // We're binding to its entire object, so we'll be adding both of these properties as inline styles -> <span style="color: red; font-size: 13px">...</span>
+
+    // JS
+    ...
+    data: {
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      }
+    }
+    ...
+
+    // If we have multiple style objects in our data, we can bind to each of them from an array
+    // HTML
+    <p :style="[styleObject, styleObject2]">...</p>
+
+    // JS
+    ...
+    data: {
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      },
+      styleObject2: {
+        margin: '5px',
+        padding: '20px'
+      }
+    }
+
+4. Another examples of class binding
+    // HTML
+    <div class="color-box"
+        :class="{ active: activeClass, 'text-danger': errorClass }"> // since errorClass is false, so 'text-danger' class will not show up. The final element would be -> <div class="color-box active">...</div>
+    ...
+    </div>
+
+    // JS
+    ...
+    data: {
+      activeClass: true,
+      errorClass: false
+    }
+    ...
+
+5. Lesson learned:
+    - Data can be bound to an element's style attribute
+    - Data can be bound to an element's class
+    - We can use expressions inside an element's class binding to evaluate whether a class should be appear or not
+-->
