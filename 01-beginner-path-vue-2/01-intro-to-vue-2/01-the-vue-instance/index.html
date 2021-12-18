@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product App</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ product }}</h1> <!-- showing data with Vue -->
+      <p>{{ description }}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> <!-- it will install Vue -->
+    <script src="./main.js"></script>
+  </body>
+</html>
+
+<!--
+NOTE:
+1. Showing Data with Vue -> {{ ... }}
+    - Double curly brace syntax is an expression to produce/evaluate a value.
+    - We can use it to:
+      - add a character -> {{ product + '?' }} 
+      - add a number -> {{ 4 + 4 }}
+      - combine values -> {{ firstName + ' ' + lastname }}
+      - perform conditional logic with ternary operator -> {{ clicked ? true :  false }}
+      - run methods on our data -> {{ message.split('').reverse().join('') }}
+      - etc.
+
+2. One of the Vue Characters -> Reactive
+    The instance's data is linked to every place that data is being referenced. So, if we are referencing product in multiple elements, both elements would update to display product's new value. Anywhere that relies on our instance's data, will update when that data changes.
+
+    // html
+    <div id="app">
+      <h1>{{ product }}</h1>
+      <h2>I love my {{ product }}</h2>
+    </div>
+
+    // js
+    var app = new Vue({
+      el: '#app',
+      data: {
+        product: 'Boots'
+      }
+    });
+
+    // try to open console and write this -> app.product = 'Coat'. The product will change from 'Boots' to 'Coat' at that time in the screen. The content of that data which is being referenced is immediately updating with that new data value bacause of the reactivity system.
+
+3. Lesson learned:
+    - how to begin writing a Vue app with a Vue instance and how to load basic data onto the webpage
+    - the Vue instance is the root of every Vue app
+    - the Vue instance plugs into an element in the DOM
+    - the Vue instance's data can be displayed using the mustache-like syntax {{ }} called an expression
+    - Vue is reactive
+-->
